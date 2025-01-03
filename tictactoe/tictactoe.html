@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My First Webpage</title>
+  <style>
+    /* Basic CSS to style the page */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      color: #333;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: black;
+    }
+    p {
+      font-size: 18px;
+    } 
+    button {
+      background-color: white;
+      color: white;
+      border: none;
+      padding: 10px 10px;
+      font-size: 50px;
+      cursor: pointer;
+      border-radius: 10px;
+      width: 100px; 
+      height: 100px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="label"></h1>
+  <!-- First Button -->
+  <div>
+  <button id="00" style="background-color: white; color: white; width: 40px; height: 40px;" onclick="button00()">#</button>
+  
+  <!-- Second Button -->
+  <button id="01" style="background-color: white; color: white; width: 40px; height: 40px;" onclick="button01()">#</button>
+  
+  <!-- Third Button -->
+  <button id="02" style="background-color: white; color: white; width: 40px; height: 40px;" onclick="button02()">#</button>
+  
+</div>
+
+<div>
+  <button id="10" style="background-color: white; color: white; width: 40px; height: 40px;" onclick="button10()">#</button>
+  
+  <!-- Second Button -->
+  <button id="11" style="background-color: white; color: white; width: 40px; height: 40px;" onclick="button11()">#</button>
+  
+  <!-- Third Button -->
+  <button id="12" style="background-color: white; color: white; width: 40px; height: 40px;" onclick="button12()">#</button>
+  
+</div>
+  
+<div>
+  <button id="20" style="background-color: white; color: white; width: 40px; height: 40px;" onclick="button20()">#</button>
+  
+  <!-- Second Button -->
+  <button id="21" style="background-color: white; color: white; width: 40px; height: 40px;" onclick="button21()">#</button>
+  
+  <!-- Third Button -->
+  <button id="22" style="background-color: white; color: white; width: 40px; height: 40px;" onclick="button22()">#</button>
+</div>
+
+<br>
+<button id="reset" style="border: solid;font-size: 20px; background-color: gray; color: black; width: 100px; height: 50px;" onclick="clearboard()">reset</button>
+
+  <script>
+    // JavaScript to add interactivity
+    let board = [["","",""],["","",""],["","",""]];
+    let currentplayer = "";
+    let winner = "";
+    let heading = document.getElementById('label');
+    let player = ["X","O"];
+    let wsize = "100px";
+    let hsize = "100px";
+    if (currentplayer == ""){
+        p = randint(0,1)
+        currentplayer = player[p];
+        if (currentplayer == "X"){
+            heading.innerText =  "O turns!";
+        }
+        else{
+            heading.innerText =  "X turns!";
+        }
+    }
+
+    for (let i = 0; i < 3; i++){
+        for (let j = 0; j < 3; j++){
+            let b_id = `${i}${j}`;
+            let button = document.getElementById(b_id);
+            button.style.width = wsize;
+            button.style.height = hsize;
+        }
+    }
+
+    
+    function randint(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function wincolor(id){
+        let button = document.getElementById(id);
+        button.style.backgroundColor = "white"
+        if (currentplayer == "X"){
+            button.style.color = "red"
+        }
+        else{
+            button.style.color = "lightblue"
+        }
+        
+    }
+
+    function wincheck(){
+        if ((board[0][0] == "X" && board[0][1] == "X" && board[0][2] == "X") || 
+            (board[0][0] == "O" && board[0][1] == "O" && board[0][2] == "O")) {
+            wincolor("00")
+            wincolor("01")
+            wincolor("02")
+            winner = currentplayer;  // Set the winner
+            heading.innerText = `${winner} Wins!`
+            return true;
+        }
+        if ((board[1][0] == "X" && board[1][1] == "X" && board[1][2] == "X") || 
+            (board[1][0] == "O" && board[1][1] == "O" && board[1][2] == "O")) {
+            wincolor("10")
+            wincolor("11")
+            wincolor("12")
+            winner = currentplayer;  // Set the winner
+            heading.innerText = `${winner} Wins!`
+            return true;
+        }
+
+        if ((board[2][0] == "X" && board[2][1] == "X" && board[2][2] == "X") || 
+            (board[2][0] == "O" && board[2][1] == "O" && board[2][2] == "O")) {
+            wincolor("20")
+            wincolor("21")
+            wincolor("22")
+            winner = currentplayer;  // Set the winner
+            heading.innerText = `${winner} Wins!`
+            return true;
+        }
+        
+        
+        if ((board[0][0] == "X" && board[1][0] == "X" && board[2][0] == "X") || 
+            (board[0][0] == "O" && board[1][0] == "O" && board[2][0] == "O")) {
+            wincolor("00")
+            wincolor("10")
+            wincolor("20")
+            winner = currentplayer;  // Set the winner
+            heading.innerText = `${winner} Wins!`
+            return true;
+        }
+        if ((board[0][1] == "X" && board[1][1] == "X" && board[2][1] == "X") || 
+            (board[0][1] == "O" && board[1][1] == "O" && board[2][1] == "O")) {
+            wincolor("01")
+            wincolor("11")
+            wincolor("21")
+            winner = currentplayer;  // Set the winner
+            heading.innerText = `${winner} Wins!`
+            return true;
+        }
+        if ((board[0][2] == "X" && board[1][2] == "X" && board[2][2] == "X") || 
+            (board[0][2] == "O" && board[1][2] == "O" && board[2][2] == "O")) {
+            wincolor("02")
+            wincolor("12")
+            wincolor("22")
+            winner = currentplayer;  // Set the winner
+            heading.innerText = `${winner} Wins!`
+            return true;
+        }
+        
+        
+        // Check diagonals
+        if ((board[0][0] == "X" && board[1][1] == "X" && board[2][2] == "X") || 
+            (board[0][0] == "O" && board[1][1] == "O" && board[2][2] == "O")) {  
+            wincolor("00")
+            wincolor("11")
+            wincolor("22")
+            winner = currentplayer;  // Set the winner
+            heading.innerText = `${winner} Wins!`
+            return true;
+            }
+        if ((board[0][2] == "X" && board[1][1] == "X" && board[2][0] == "X") || 
+            (board[0][2] == "O" && board[1][1] == "O" && board[2][0] == "O")) {
+            wincolor("02")
+            wincolor("11")
+            wincolor("20")
+            winner = currentplayer;  // Set the winner
+            heading.innerText = `${winner} Wins!`
+            return true;
+        }
+        
+        return false;
+
+    }
+
+    function drawcheck(){
+        if (board[0][0] != "" && board[1][0] != "" && board[2][0] != "" &&
+            board[0][1] != "" && board[1][1] != "" && board[2][1] != "" &&
+            board[0][2] != "" && board[1][2] != "" && board[2][2] != "" ){
+                winner = "draw";  // Set the winner
+                heading.innerText = "Draw!"
+                return true;
+            }
+    }
+
+    function emptycheck(x,y,id){
+        let button = document.getElementById(id);
+        if (winner == ""){
+            if (board[x][y] == ""){
+                if (currentplayer == "X"){
+                    currentplayer = "O";
+                }
+                else {currentplayer = "X";}
+                board[x][y] = currentplayer;
+                button.textContent = board[x][y];
+                    if(currentplayer == "X") {button.style.backgroundColor = "red";}
+                    else {button.style.backgroundColor = "lightblue";}
+                }
+                if (currentplayer == "X"){
+                    heading.innerText =  "O turns!";
+                }
+                else{
+                    heading.innerText =  "X turns!";
+                }
+            }
+        }
+        
+        function clearboard(){
+            board = [["","",""],["","",""],["","",""]]
+            for (let i = 0; i < 3; i++){
+                for (let j = 0; j < 3; j++){
+                    let button = document.getElementById(`${i}${j}`)
+                    button.style.backgroundColor = "white";
+                    button.style.color = "white"
+                    button.textContent = "#"
+                    if (currentplayer == "X"){
+                        heading.innerText =  "O turns!";
+                    }
+                    else{
+                        heading.innerText =  "X turns!";
+                    }
+                }
+            }
+            winner = "";
+        }
+        
+    function button00() {
+        emptycheck(0,0,"00");
+        drawcheck()
+        wincheck()
+    }
+    
+    function button01() {
+        emptycheck(0,1,"01")
+        drawcheck()
+        wincheck()
+    }
+    
+    function button02() {
+        emptycheck(0,2,"02")
+        drawcheck()
+        wincheck()
+    }
+    
+    function button10() {
+        emptycheck(1,0,"10")
+        drawcheck()
+        wincheck()
+    }
+
+    function button11() {
+        emptycheck(1,1,"11")
+        drawcheck()
+        wincheck()
+    }
+    
+    function button12() {
+        emptycheck(1,2,"12")
+        drawcheck()
+        wincheck()
+    }
+    
+    function button20() {
+        emptycheck(2,0,"20")
+        drawcheck()
+        wincheck()
+    }
+    
+    function button21() {
+        emptycheck(2,1,"21")
+        drawcheck()
+        wincheck()
+    }
+    
+    function button22() {
+        emptycheck(2,2,"22")
+        drawcheck()
+        wincheck()
+    }
+    
+    </script>
+</body>
+</html>
