@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $servername = "localhost";
     $username = "root";  // Your MySQL username
     $password = "";  // Your MySQL password
@@ -10,14 +11,16 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        $username = $_POST["nama_input"];
-        $rekening = $_POST["rekening_input"];
+        $nama = $_POST["nama_input"];
+        $rekening = $_POST["rekening_input"]; // 
         $pin = $_POST["pin_input"];
-        // $sql = "SELECT * FROM client_info WHERE nama = `$username` AND rekening = `$rekening` and pin = `$pin`";
-        $sql = "SELECT * FROM client_info WHERE nama = '$username' AND rekening = '$rekening' AND pin ='$pin'";
-
-
+        $sql = "SELECT * FROM client_info WHERE nama = '$nama' AND rekening = '$rekening' AND pin ='$pin'";
         $result = $conn->query($sql);
+        
+        $insertsql = "INSERT INTO cek_saldo VALUES('$rekening')";
+        $insertdata = $conn->query($insertsql);
+
+
         if ($result->num_rows > 0) {
             echo "client found!";
             header("Location: option_state.php");
