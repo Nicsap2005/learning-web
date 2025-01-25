@@ -9,7 +9,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 
 // Query to get data from cek_saldo
-$result = $conn->query("SELECT * FROM cek_saldo");
+$result = $conn->query("SELECT * FROM temp");
 
 if ($result->num_rows > 0) {
     // Fetch the single row from cek_saldo
@@ -26,7 +26,7 @@ if ($result->num_rows > 0) {
     $saldo = $saldoRow['saldo'];
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    $clearall = $conn->query("TRUNCATE TABLE cek_saldo");
+    $clearall = $conn->query("TRUNCATE TABLE temp");
     header("Location: login_state.php");
     exit;
 
@@ -49,7 +49,7 @@ $conn->close();
     <p>Rekening Anda:<?php echo $rekening ; ?> </p>
     <p>Saldo Anda:<?php echo $saldo ; ?> </p>
     <form action="" method="POST">
-        <button type="submit">truncate</button>
+        <p>ada transaksi lain? <button type="submit">ya</button></p>
     </form>
 </body>
 </html>

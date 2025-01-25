@@ -1,5 +1,4 @@
 <?php
-    session_start();
     $servername = "localhost";
     $username = "root";  // Your MySQL username
     $password = "";  // Your MySQL password
@@ -17,7 +16,7 @@
         $sql = "SELECT * FROM client_info WHERE nama = '$nama' AND rekening = '$rekening' AND pin ='$pin'";
         $result = $conn->query($sql);
         
-        $insertsql = "INSERT INTO cek_saldo VALUES('$rekening')";
+        $insertsql = "INSERT INTO temp VALUES('$rekening')";
         $insertdata = $conn->query($insertsql);
 
 
